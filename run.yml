@@ -1,0 +1,29 @@
+name: Run QingLong Script
+
+on:
+  schedule:
+    # 每天 9 点运行一次
+    - cron: '0 9 * * *'
+  workflow_dispatch: # 手动运行
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ 拉取仓库
+      - uses: actions/checkout@v4
+
+      # 2️⃣ 安装 Node.js
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # 3️⃣ 安装依赖
+      - name: Install
+        run: npm install
+
+      # 4️⃣ 运行脚本
+      - name: Run Script
+        run: node jd.js
